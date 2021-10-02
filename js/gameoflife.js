@@ -27,11 +27,32 @@ const corners = (state = []) => {
   
 };
 
-const printCells = (state) => {};
+const printCells = (state) => {
+  // Destructure bottomLeft and topRight from corners function
+  const {bottomLeft, topRight} = corners(state)
+  // Print the states using the printCell function
+  let cells = '';
+  for(let y=topRight[1]; y>=bottomLeft[1]; y--){
+    let row_to_print = [];
+    for(let x=bottomLeft[0]; x<=topRight[0]; x++){
+      row_to_print.push(printCell([x,y], state))
+    }
+    cells += (row_to_print.join(' ')+ '\n')
+  }
+return cells
+  
+};
 
-const getNeighborsOf = ([x, y]) => {};
+const getNeighborsOf = ([x, y]) => {
+  return [[x-1, y-1],[x-1,y],[x-1,y+1],[x+1,y-1],[x+1,y],[x+1,y+1],[x,y-1],[x,y+1]]
+};
 
-const getLivingNeighbors = (cell, state) => {};
+const getLivingNeighbors = (cell, state) => {
+  // Get neighbours
+  let neighbours = getNeighborsOf(cell)
+// Get and return Live neighbours
+return neighbours.filter(a => contains.bind(state)(a))
+};
 
 const willBeAlive = (cell, state) => {};
 
